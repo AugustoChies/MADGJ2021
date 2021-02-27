@@ -13,7 +13,7 @@ public class PlayerLightningSpawn : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject _playerDeathLight;
 
-    private List<Light2D> _playerDeathLightList = new List<Light2D>();
+    private readonly List<Light2D> _playerDeathLightList = new List<Light2D>();
 
     private void Update()
     {
@@ -21,9 +21,8 @@ public class PlayerLightningSpawn : MonoBehaviour
         {
             GameObject temp = Instantiate(_playerDeathLight);
 
-            if (_playerDeathLightList.Count > 3)
+            if (_playerDeathLightList.Count > 30)
             {
-                print(_playerDeathLightList.Count);
                 Destroy(_playerDeathLightList[0].transform.parent.gameObject);
                 _playerDeathLightList.RemoveAt(0);
             }
