@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour
         }
 
         _player.GetComponent<Animator>().Play(PlayerIdleName);
+        PlayerAnimation.CurrentPlayerState = PlayerState.Idle;
 
         _playerDeathSpawn.InstantiatePlayerDeath(collisor, isFlipped);
 

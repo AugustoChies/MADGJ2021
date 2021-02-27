@@ -16,16 +16,22 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Vector2 _crouchSize;
 
     [SerializeField] private static PlayerState _playerState;
+    [SerializeField] private PlayerState _playerState2;
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private Animator _animator;
     [SerializeField] private BoxCollider2D _collider;
 
     private bool isCrouchingHitboxActive = false;
 
-    public static PlayerState CurrentPlayerState => _playerState;
+    public static PlayerState CurrentPlayerState
+    {
+        get => _playerState;
+        set => _playerState = value;
+    }
 
     private void Update()
     {
+        _playerState2 = _playerState;
         if(GameController.instance._gameState == GameState.Gameplay)
         {
             UpdateAnimations();
