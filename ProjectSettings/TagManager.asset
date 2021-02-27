@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Killer
+  - StageEnd
   layers:
   - Default
   - TransparentFX
