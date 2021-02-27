@@ -18,17 +18,22 @@ public class PlayerLightningSpawn : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject temp = Instantiate(_playerDeathLight);
-
-            if (_playerDeathLightList.Count > 30)
-            {
-                Destroy(_playerDeathLightList[0].transform.parent.gameObject);
-                _playerDeathLightList.RemoveAt(0);
-            }
-
-            _playerDeathLightList.Add(temp.GetComponentInChildren<Light2D>());
-            UpdateDeathLightsIntensities();
+            
         }
+    }
+
+    public void InstantiatePlayerDeath(Vector2 collisor)
+    {
+        GameObject temp = Instantiate(_playerDeathLight, collisor, Quaternion.Euler(0,0,-90));
+
+        if (_playerDeathLightList.Count > 30)
+        {
+            Destroy(_playerDeathLightList[0].transform.parent.gameObject);
+            _playerDeathLightList.RemoveAt(0);
+        }
+
+        _playerDeathLightList.Add(temp.GetComponentInChildren<Light2D>());
+        UpdateDeathLightsIntensities();
     }
 
     public void UpdateDeathLightsIntensities()

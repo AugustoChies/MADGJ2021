@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed, jumpPower;
+    private bool _isCrouching;
     protected Rigidbody2D body;
     protected int movement;
     protected bool jump;
-    // Start is called before the first frame update
+
+    public int Movement => movement;
+    public bool IsCrouching => _isCrouching;
+
     void Awake()
     {
         body = this.GetComponent<Rigidbody2D>();
@@ -17,23 +21,43 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement = 0;
-        if(Input.GetKey(KeyCode.A))
+        if(PlayerAnimation.CurrentPlayerState != PlayerState.GettingUp)
         {
-            movement--;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            movement++;
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            jump = true;
-        }
+            if(GameController.instance._gameState == GameState.Gameplay)
+            {
+                UpdateMovement();
+            }
+        }      
     }
 
     public Vector2 rayOrigin1,rayOrigin2,rayOrigin3;
-    bool GroundCheck()
+
+    public void UpdateMovement()
+    {
+        movement = 0;
+        if (Input.GetKey(KeyCode.A) && !_isCrouching)
+        {
+            movement--;
+        }
+        if (Input.GetKey(KeyCode.D) && !_isCrouching)
+        {
+            movement++;
+        }
+        if (Input.GetKeyDown(KeyCode.W) && !_isCrouching)
+        {
+            jump = true;
+        }
+        if (Input.GetKey(KeyCode.S) && GroundCheck())
+        {
+            _isCrouching = true;
+        }
+        if (Input.GetKeyUp(KeyCode.S) && GroundCheck())
+        {
+            _isCrouching = false;
+        }
+    }
+
+    public bool GroundCheck()
     {
         RaycastHit2D hit1 = Physics2D.Raycast(body.position + rayOrigin1, Vector2.down, 0.1f);
         RaycastHit2D hit2 = Physics2D.Raycast(body.position + rayOrigin2, Vector2.down, 0.1f);
