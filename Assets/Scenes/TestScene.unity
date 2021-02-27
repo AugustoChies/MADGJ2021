@@ -262,6 +262,11 @@ PrefabInstance:
       propertyPath: _playerStartPosition
       value: 
       objectReference: {fileID: 1474933839}
+    - target: {fileID: 9219595407810574884, guid: 925ded6b7f3de89438e23c8a5df99d5a,
+        type: 3}
+      propertyPath: _levelTransitionWaitTime
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 9219595407810574885, guid: 925ded6b7f3de89438e23c8a5df99d5a,
         type: 3}
       propertyPath: m_RootOrder
@@ -703,7 +708,7 @@ SpriteRenderer:
   m_Size: {x: 61.28227, y: 11.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1662739354

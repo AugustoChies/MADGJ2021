@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject _transitionImage;
     [SerializeField] private PlayerLightningSpawn _playerDeathSpawn;
     [SerializeField] private Transform _playerStartPosition;
+    [SerializeField] private float _levelTransitionWaitTime;
 
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class GameController : MonoBehaviour
     public IEnumerator GoToNextScene()
     {
         _gameState = GameState.Cutscene;
-
+        yield return new WaitForSeconds(_levelTransitionWaitTime);
         _player.GetComponent<Animator>().Play(PlayerIdleName);
         PlayerAnimation.CurrentPlayerState = PlayerState.Idle;
         _transitionImage.SetActive(true);
