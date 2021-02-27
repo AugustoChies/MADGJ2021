@@ -81,8 +81,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FixedUpdate()
-    {        
-        body.velocity = new Vector2(movement * speed * Time.deltaTime,body.velocity.y);
+    {
+        if (GameController.instance._gameState == GameState.Gameplay) body.velocity = new Vector2(movement * speed * Time.deltaTime, body.velocity.y);
+        else body.velocity = new Vector2(0, body.velocity.y);
         if(jump)
         {
             if (GroundCheck())
