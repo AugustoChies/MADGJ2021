@@ -26,8 +26,11 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        UpdateAnimations();
-        UpdateHitBox();
+        if(GameController.instance._gameState == GameState.Gameplay)
+        {
+            UpdateAnimations();
+            UpdateHitBox();
+        }
     }
 
     public void UpdateAnimations()

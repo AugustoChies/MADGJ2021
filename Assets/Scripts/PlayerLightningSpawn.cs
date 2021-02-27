@@ -14,17 +14,10 @@ public class PlayerLightningSpawn : MonoBehaviour
 
     private readonly List<Light2D> _playerDeathLightList = new List<Light2D>();
 
-    private void Update()
+    public void InstantiatePlayerDeath(Vector2 collisor, bool isFlipped)
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            
-        }
-    }
-
-    public void InstantiatePlayerDeath(Vector2 collisor)
-    {
-        GameObject temp = Instantiate(_playerDeathLight, collisor, Quaternion.Euler(0,0,-90));
+        GameObject temp = Instantiate(_playerDeathLight, collisor, Quaternion.identity);
+        temp.GetComponent<SpriteRenderer>().flipX = isFlipped;
 
         if (_playerDeathLightList.Count > 30)
         {
