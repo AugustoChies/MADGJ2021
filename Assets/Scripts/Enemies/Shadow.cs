@@ -25,7 +25,7 @@ public class Shadow : MonoBehaviour
 
     void CheckRays()
     {       
-        RaycastHit2D hitD = Physics2D.Raycast(downDetector.position, Vector2.down, 0.4f);
+        RaycastHit2D hitD = Physics2D.Raycast(downDetector.position, Vector2.down, 0.8f);
         
         if(hitD.collider != null && hitD.collider.CompareTag("Killer"))
         {
