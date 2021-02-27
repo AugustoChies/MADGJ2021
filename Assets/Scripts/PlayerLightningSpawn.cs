@@ -16,7 +16,7 @@ public class PlayerLightningSpawn : MonoBehaviour
 
     public void InstantiatePlayerDeath(Vector2 collisor, bool isFlipped)
     {
-        GameObject temp = Instantiate(_playerDeathLight, collisor, Quaternion.identity);
+        GameObject temp = Instantiate(_playerDeathLight, new Vector2(collisor.x, collisor.y + 0.5f), Quaternion.identity); ;
         temp.GetComponent<SpriteRenderer>().flipX = isFlipped;
 
         if (_playerDeathLightList.Count > 30)

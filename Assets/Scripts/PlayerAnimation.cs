@@ -136,7 +136,6 @@ public class PlayerAnimation : MonoBehaviour
 
     public bool AnimatorIsPlaying()
     {
-        print(_animator.GetCurrentAnimatorStateInfo(0).length > _animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         return _animator.GetCurrentAnimatorStateInfo(0).length >
                _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }
