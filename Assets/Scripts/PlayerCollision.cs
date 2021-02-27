@@ -13,5 +13,10 @@ public class PlayerCollision : MonoBehaviour
 
             StartCoroutine(GameController.instance.InstantiatePlayerDeath(this.gameObject, collisionLocation, isFlipped));
         }
+
+        if (collision.gameObject.CompareTag("StageEnd"))
+        {
+            StartCoroutine(GameController.instance.GoToNextScene());
+        }
     }
 }

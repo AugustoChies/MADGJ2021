@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -11,11 +10,11 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     public GameState _gameState;
 
+    [SerializeField] private string _nextLevelName;
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _transitionImage;
     [SerializeField] private PlayerLightningSpawn _playerDeathSpawn;
     [SerializeField] private Transform _playerStartPosition;
-
 
     private void Awake()
     {
@@ -29,9 +28,6 @@ public class GameController : MonoBehaviour
         _player.GetComponent<Animator>().Play(PlayerDeathName);
         _transitionImage.SetActive(true);
         Transition transition = _transitionImage.GetComponent<Transition>();
-        //_player.GetComponent<Rigidbody2D>().gravityScale = 0f;
-        //_player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        //_player.GetComponent<BoxCollider2D>().enabled = false;
 
         while(!transition.HasFadeInFinished)
         {
@@ -44,8 +40,6 @@ public class GameController : MonoBehaviour
         _playerDeathSpawn.InstantiatePlayerDeath(collisor, isFlipped);
 
         player.transform.position = _playerStartPosition.position;
-        //_player.GetComponent<Rigidbody2D>().gravityScale = 1f;
-        //_player.GetComponent<BoxCollider2D>().enabled = true;
         
         while(_transitionImage.activeSelf)
         {
@@ -53,5 +47,22 @@ public class GameController : MonoBehaviour
         }
 
         _gameState = GameState.Gameplay;
+    }
+    public IEnumerator GoToNextScene()
+    {
+        _gameState = GameState.Cutscene;
+
+        _player.GetComponent<Animator>().Play(PlayerIdleName);
+        PlayerAnimation.CurrentPlayerState = PlayerState.Idle;
+        _transitionImage.SetActive(true);
+
+        Transition transition = _transitionImage.GetComponent<Transition>();
+
+        while (!transition.HasFadeInFinished)
+        {
+            yield return null;
+        }
+
+        SceneManager.LoadScene(_nextLevelName, LoadSceneMode.Single);
     }
 }
