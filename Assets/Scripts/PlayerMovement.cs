@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     public int Movement => movement;
     public bool IsCrouching => _isCrouching;
-
+    public GameObject particles;
+    public Transform standigPos, crounchingPos;
     void Awake()
     {
         body = this.GetComponent<Rigidbody2D>();
@@ -63,10 +64,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.S) && GroundCheck())
         {
             _isCrouching = true;
+            particles.transform.position = crounchingPos.position;
         }
         if (Input.GetKeyUp(KeyCode.S) && GroundCheck())
         {
             _isCrouching = false;
+            particles.transform.position = standigPos.position;
         }
     }
 
@@ -82,8 +85,16 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameController.instance._gameState == GameState.Gameplay) body.velocity = new Vector2(movement * speed * Time.deltaTime, body.velocity.y);
-        else body.velocity = new Vector2(0, body.velocity.y);
+        if (GameController.instance._gameState == GameState.Gameplay)
+        {
+            body.velocity = new Vector2(movement * speed * Time.deltaTime, body.velocity.y);
+            particles.SetActive(true);
+        }
+        else
+        {
+            body.velocity = new Vector2(0, body.velocity.y);
+            particles.SetActive(false);
+        }
         if(jump)
         {
             if (GroundCheck())

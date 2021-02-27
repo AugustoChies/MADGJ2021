@@ -456,14 +456,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7618544966127977481}
   m_PrefabAsset: {fileID: 0}
---- !u!81 &1242145725
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242145718}
-  m_Enabled: 1
 --- !u!1 &1301074101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1120,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3108144, guid: ec826194a9a520c4cb0ce161ce65ce3f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 48e4a0d9b7f1e1f4aba6146ad7c57fb1,
+        type: 3}
     - target: {fileID: 1592653908058818422, guid: ec826194a9a520c4cb0ce161ce65ce3f,
         type: 3}
       propertyPath: m_Name
@@ -1151,7 +1148,7 @@ PrefabInstance:
     - target: {fileID: 2148907913679790942, guid: ec826194a9a520c4cb0ce161ce65ce3f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1238.6825
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2148907913679790942, guid: ec826194a9a520c4cb0ce161ce65ce3f,
         type: 3}
