@@ -10,7 +10,7 @@ public class PlayerCollision : MonoBehaviour
         {
             Vector2 collisionLocation = new Vector2(transform.position.x, collision.transform.position.y);
 
-            GameController.instance.InstantiatePlayerDeath(this.gameObject, collisionLocation);
+            StartCoroutine(GameController.instance.InstantiatePlayerDeath(this.gameObject, collisionLocation));
         }
     }
 }

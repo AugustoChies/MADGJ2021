@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     protected Rigidbody2D body;
     protected int movement;
     protected bool jump;
+    private bool _isFlipped = false;
 
     public int Movement => movement;
     public bool IsCrouching => _isCrouching;
@@ -38,10 +39,22 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A) && !_isCrouching)
         {
             movement--;
+
+            if(!_isFlipped)
+            {
+                transform.localScale = new Vector2(-1, 1);
+                _isFlipped = true;
+            }
         }
         if (Input.GetKey(KeyCode.D) && !_isCrouching)
         {
             movement++;
+
+            if (_isFlipped)
+            {
+                transform.localScale = new Vector2(1, 1);
+                _isFlipped = false;
+            }
         }
         if (Input.GetKeyDown(KeyCode.W) && !_isCrouching)
         {
