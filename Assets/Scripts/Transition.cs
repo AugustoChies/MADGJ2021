@@ -16,6 +16,7 @@ public class Transition : MonoBehaviour
     private void OnEnable()
     {
         _hasFadeInFinished = false;
+        _img.color = new Color(0, 0, 0, 0);
         StartCoroutine(Fade());
     }
 
@@ -28,11 +29,12 @@ public class Transition : MonoBehaviour
         while (i < 1)
         {
             _img.color = new Color(0, 0, 0, i);
-            i -= Time.deltaTime / _fadeDuration;
+            i += Time.deltaTime / _fadeDuration;
 
             yield return null;
         }
 
+        _img.color = new Color(0, 0, 0, 1);
         _hasFadeInFinished = true;
 
         yield return new WaitForSeconds(_delayBetweenFades);
@@ -40,10 +42,11 @@ public class Transition : MonoBehaviour
         while (i > 0)
         {
             _img.color = new Color(0, 0, 0, i);
-            i += Time.deltaTime / _fadeDuration;
+            i -= Time.deltaTime / _fadeDuration;
 
             yield return null;
         }
+        _img.color = new Color(0, 0, 0, 0);
 
         yield return null;
         this.gameObject.SetActive(false);
