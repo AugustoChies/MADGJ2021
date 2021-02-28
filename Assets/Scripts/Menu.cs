@@ -6,13 +6,31 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    public static string SceneLoadPref = "LoadGame";
+
     protected Vector3 originalPos, originalScale;
     public Vector3 finalPos, finalScale;
     public float expansionTime;
     public RectTransform mainImage;
     public GameObject title, startbutton, creditsbutton, quitbutton, credits;
     protected bool begining,creditsMode;
+
+    [SerializeField] private GameObject _loadButton;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        
+            if (!PlayerPrefs.HasKey(SceneLoadPref))
+            {
+                _loadButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().color = new Color(1, 1, 1, 0.5f);
+            }
+            else
+            {
+                _loadButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().color = new Color(1, 1, 1, 1f);
+            }
+        
+    }
     void Start()
     {
         begining = true;
@@ -43,6 +61,7 @@ public class Menu : MonoBehaviour
         startbutton.SetActive(true);
         creditsbutton.SetActive(true);
         quitbutton.SetActive(true);
+        _loadButton.SetActive(true);
         credits.SetActive(false);
         creditsMode = false;
     }
@@ -50,6 +69,7 @@ public class Menu : MonoBehaviour
     protected void ShowCredits()
     {
         startbutton.SetActive(false);
+        _loadButton.SetActive(false);
         creditsbutton.SetActive(false);
         quitbutton.SetActive(false);
         credits.SetActive(true);
@@ -81,5 +101,13 @@ public class Menu : MonoBehaviour
     public void QuittButton()
     {
         Application.Quit();
+    }
+
+    public void LoadButton()
+    {
+        if(PlayerPrefs.HasKey(SceneLoadPref))
+        {
+            SceneManager.LoadScene(PlayerPrefs.GetString(SceneLoadPref), LoadSceneMode.Single);
+        }
     }
 }
