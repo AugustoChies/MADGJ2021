@@ -9,7 +9,7 @@ public class CutsceneScript : MonoBehaviour
     [SerializeField] private ParticleSystem particles;
     private bool rising;
     [SerializeField] private GameObject kabum;
-    // Start is called before the first frame update
+    [SerializeField] private AudioClip _fireworkClip;
     void Start()
     {
         rising = true;
@@ -19,7 +19,6 @@ public class CutsceneScript : MonoBehaviour
         StartCoroutine(ParticleIncrease());
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (rising)
@@ -42,10 +41,16 @@ public class CutsceneScript : MonoBehaviour
         var speed = particles.GetComponent<ParticleSystem>().main;
         for (float i = 0; i < 1; i += Time.deltaTime/cutsceneTime)
         {
+            GetComponent<AudioSource>().pitch += Time.deltaTime * 0.1f;
             yield return null;
             emission.rateOverTime = Mathf.Lerp(initParticleEmission, endPartEmission, i);
             speed.startSpeed = Mathf.Lerp(initParticleSpeed, endPartSpeed, i);
         }
+
+        GetComponent<AudioSource>().Stop();
+        GetComponent<AudioSource>().clip = _fireworkClip;
+        GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().loop = false;
 
         Instantiate(kabum, this.transform.position, Quaternion.identity);
         this.GetComponent<SpriteRenderer>().enabled = false;
