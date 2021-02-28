@@ -5048,6 +5048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae2a0d44a7e6d414cb5013244cb4ccf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sadMusic: {fileID: 8300000, guid: ccd123457b6be6e479bb08094ca9c378, type: 3}
 --- !u!95 &495057446
 Animator:
   serializedVersion: 3

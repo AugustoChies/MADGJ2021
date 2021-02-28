@@ -1,21 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class CutsceneScript : MonoBehaviour
 {
-    [SerializeField] private float riseSpeed, cutsceneTime,risingTime, endPartEmission,endPartSpeed;
-    private float initPos, initParticleEmission, initParticleSpeed;
+    [SerializeField] private float riseSpeed, cutsceneTime,risingTime, endPartEmission,endPartSpeed,endLightRadius;
+    private float initPos, initParticleEmission, initParticleSpeed,initLightRadius;
     [SerializeField] private ParticleSystem particles;
     private bool rising;
     [SerializeField] private GameObject kabum;
     [SerializeField] private AudioClip _fireworkClip;
+    [SerializeField] private Light2D pointL;
     void Start()
     {
         rising = true;
         initParticleEmission = particles.emission.rateOverTime.constant;
         initParticleSpeed = particles.main.startSpeed.constant;
         initPos = transform.position.y;
+        initLightRadius = pointL.pointLightOuterRadius;
         StartCoroutine(ParticleIncrease());
     }
 
@@ -45,6 +48,7 @@ public class CutsceneScript : MonoBehaviour
             yield return null;
             emission.rateOverTime = Mathf.Lerp(initParticleEmission, endPartEmission, i);
             speed.startSpeed = Mathf.Lerp(initParticleSpeed, endPartSpeed, i);
+            pointL.pointLightOuterRadius = Mathf.Lerp(initLightRadius, endLightRadius, i);
         }
 
         GetComponent<AudioSource>().Stop();
@@ -54,6 +58,7 @@ public class CutsceneScript : MonoBehaviour
 
         Instantiate(kabum, this.transform.position, Quaternion.identity);
         this.GetComponent<SpriteRenderer>().enabled = false;
+        pointL.enabled = false;
         particles.Stop();
     }
 }

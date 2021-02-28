@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
+    public AudioClip sadMusic;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Killer")  && GameController.instance._gameState == GameState.Gameplay)
@@ -19,7 +20,7 @@ public class PlayerCollision : MonoBehaviour
             if (collision.GetComponent<StageEndLight>().destination == "End")
             {
                 Camera.main.GetComponent<AudioSource>().Stop();
-                StartCoroutine(GameController.instance.EndScene(this.transform.position));
+                StartCoroutine(GameController.instance.EndScene(this.transform.position,sadMusic));
             }
             else
             {            

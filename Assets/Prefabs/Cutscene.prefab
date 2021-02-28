@@ -4948,10 +4948,12 @@ MonoBehaviour:
   cutsceneTime: 10
   risingTime: 4
   endPartEmission: 50
-  endPartSpeed: 10
+  endPartSpeed: 12
+  endLightRadius: 10
   particles: {fileID: 2373565130000995425}
   kabum: {fileID: 114476, guid: f5695768b6cb9424389cebfb8c8f0dfd, type: 3}
   _fireworkClip: {fileID: 8300000, guid: 4bf98de385e8c3849a5fc8e645f53426, type: 3}
+  pointL: {fileID: 5182782211212907363}
 --- !u!82 &5311961279849692146
 AudioSource:
   m_ObjectHideFlags: 0

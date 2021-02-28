@@ -68,13 +68,18 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(next, LoadSceneMode.Single);
     }
 
-    public IEnumerator EndScene(Vector3 cutscenePos)
+    public IEnumerator EndScene(Vector3 cutscenePos,AudioClip clip)
     {
         _gameState = GameState.Cutscene;
         PlayerAnimation.CurrentPlayerState = PlayerState.Idle;
         _player.GetComponent<Animator>().Play(PlayerIdleName);
         yield return new WaitForSeconds(_levelTransitionWaitTime);
 
+        Camera.main.GetComponent<AudioSource>().clip = clip;
+        Camera.main.GetComponent<AudioSource>().loop = false;
+        Camera.main.GetComponent<AudioSource>().volume = 1;
+        Camera.main.GetComponent<AudioSource>().Play();
+        
         Instantiate(_playerCutscene, cutscenePos, Quaternion.identity);
         _player.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(_lastSceneTransitionTime);

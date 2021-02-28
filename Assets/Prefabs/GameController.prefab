@@ -52,4 +52,4 @@ MonoBehaviour:
   _playerDeathSpawn: {fileID: 0}
   _playerStartPosition: {fileID: 0}
   _levelTransitionWaitTime: 4
-  _lastSceneTransitionTime: 12
+  _lastSceneTransitionTime: 15
