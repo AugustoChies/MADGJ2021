@@ -18,6 +18,7 @@ public class PlayerCollision : MonoBehaviour
         {
             if (collision.GetComponent<StageEndLight>().destination == "End")
             {
+                Camera.main.GetComponent<AudioSource>().Stop();
                 StartCoroutine(GameController.instance.EndScene(this.transform.position));
             }
             else

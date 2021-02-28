@@ -8,7 +8,7 @@ public class CutsceneScript : MonoBehaviour
     private float initPos, initParticleEmission, initParticleSpeed;
     [SerializeField] private ParticleSystem particles;
     private bool rising;
-
+    [SerializeField] private GameObject kabum;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +47,7 @@ public class CutsceneScript : MonoBehaviour
             speed.startSpeed = Mathf.Lerp(initParticleSpeed, endPartSpeed, i);
         }
 
-        //spawnboom
+        Instantiate(kabum, this.transform.position, Quaternion.identity);
         this.GetComponent<SpriteRenderer>().enabled = false;
         particles.Stop();
     }

@@ -20,15 +20,6 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        PlayerPrefs.SetString(Menu.SceneLoadPref, SceneManager.GetActiveScene().name);
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-        }
     }
 
     public IEnumerator InstantiatePlayerDeath(GameObject player, Vector2 collisor, bool isFlipped)
@@ -82,11 +73,12 @@ public class GameController : MonoBehaviour
         _gameState = GameState.Cutscene;
         PlayerAnimation.CurrentPlayerState = PlayerState.Idle;
         _player.GetComponent<Animator>().Play(PlayerIdleName);
+        yield return new WaitForSeconds(_levelTransitionWaitTime);
 
         Instantiate(_playerCutscene, cutscenePos, Quaternion.identity);
+        _player.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(_lastSceneTransitionTime);
 
-        yield return new WaitForSeconds(_levelTransitionWaitTime);
         _transitionImage.SetActive(true);
 
         Transition transition = _transitionImage.GetComponent<Transition>();
