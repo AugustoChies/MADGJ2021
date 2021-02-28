@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     public GameState _gameState;
 
-    [SerializeField] private string _nextLevelName;
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _transitionImage;
     [SerializeField] private PlayerLightningSpawn _playerDeathSpawn;
@@ -49,7 +48,7 @@ public class GameController : MonoBehaviour
 
         _gameState = GameState.Gameplay;
     }
-    public IEnumerator GoToNextScene()
+    public IEnumerator GoToNextScene(string next)
     {
         _gameState = GameState.Cutscene;
         yield return new WaitForSeconds(_levelTransitionWaitTime);
@@ -64,6 +63,6 @@ public class GameController : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene(_nextLevelName, LoadSceneMode.Single);
+        SceneManager.LoadScene(next, LoadSceneMode.Single);
     }
 }

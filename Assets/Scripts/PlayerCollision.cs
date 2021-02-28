@@ -16,7 +16,7 @@ public class PlayerCollision : MonoBehaviour
 
         if (collision.gameObject.CompareTag("StageEnd"))
         {
-            StartCoroutine(GameController.instance.GoToNextScene());
+            StartCoroutine(GameController.instance.GoToNextScene(collision.GetComponent<StageEndLight>().destination));
         }
     }
 }

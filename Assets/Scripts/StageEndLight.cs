@@ -8,6 +8,7 @@ public class StageEndLight : MonoBehaviour
     public Light2D myLight;
     public float maxExpansion, maxintensity, transitiontime;
     protected float initradius,initIntensity;
+    public string destination;
 
     private void Start()
     {
