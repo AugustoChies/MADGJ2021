@@ -45,7 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameState: 0
   _player: {fileID: 0}
+  _playerCutscene: {fileID: 0}
   _transitionImage: {fileID: 0}
+  _menuScene: MainMenu
   _playerDeathSpawn: {fileID: 0}
   _playerStartPosition: {fileID: 0}
   _levelTransitionWaitTime: 4
+  _lastSceneTransitionTime: 10

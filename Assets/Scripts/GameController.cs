@@ -10,11 +10,12 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     public GameState _gameState;
 
-    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _player,_playerCutscene;
     [SerializeField] private GameObject _transitionImage;
+    [SerializeField] private string _menuScene;
     [SerializeField] private PlayerLightningSpawn _playerDeathSpawn;
     [SerializeField] private Transform _playerStartPosition;
-    [SerializeField] private float _levelTransitionWaitTime;
+    [SerializeField] private float _levelTransitionWaitTime,_lastSceneTransitionTime;
 
     private void Awake()
     {
@@ -51,9 +52,10 @@ public class GameController : MonoBehaviour
     public IEnumerator GoToNextScene(string next)
     {
         _gameState = GameState.Cutscene;
-        yield return new WaitForSeconds(_levelTransitionWaitTime);
-        _player.GetComponent<Animator>().Play(PlayerIdleName);
         PlayerAnimation.CurrentPlayerState = PlayerState.Idle;
+        _player.GetComponent<Animator>().Play(PlayerIdleName);
+
+        yield return new WaitForSeconds(_levelTransitionWaitTime);
         _transitionImage.SetActive(true);
 
         Transition transition = _transitionImage.GetComponent<Transition>();
@@ -65,4 +67,28 @@ public class GameController : MonoBehaviour
 
         SceneManager.LoadScene(next, LoadSceneMode.Single);
     }
+
+    public IEnumerator EndScene(Vector3 cutscenePos)
+    {
+        _gameState = GameState.Cutscene;
+        PlayerAnimation.CurrentPlayerState = PlayerState.Idle;
+        _player.GetComponent<Animator>().Play(PlayerIdleName);
+
+        Instantiate(_playerCutscene, cutscenePos, Quaternion.identity);
+        yield return new WaitForSeconds(_lastSceneTransitionTime);
+
+        yield return new WaitForSeconds(_levelTransitionWaitTime);
+        _transitionImage.SetActive(true);
+
+        Transition transition = _transitionImage.GetComponent<Transition>();
+
+        while (!transition.HasFadeInFinished)
+        {
+            yield return null;
+        }
+
+        SceneManager.LoadScene(_menuScene, LoadSceneMode.Single);
+    }
+
+
 }

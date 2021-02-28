@@ -18,7 +18,7 @@ public class PlayerCollision : MonoBehaviour
         {
             if (collision.GetComponent<StageEndLight>().destination == "End")
             {
-                //cutscene
+                StartCoroutine(GameController.instance.EndScene(this.transform.position));
             }
             else
             {            
