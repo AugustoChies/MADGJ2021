@@ -61,26 +61,30 @@ public class PlayerMovement : MonoBehaviour
         {
             jump = true;
         }
-        if (Input.GetKey(KeyCode.S) && GroundCheck())
+        if (Input.GetKey(KeyCode.S) && CheckGround())
         {
             _isCrouching = true;
             particles.transform.position = crounchingPos.position;
         }
-        if (Input.GetKeyUp(KeyCode.S) && GroundCheck())
+        if (Input.GetKeyUp(KeyCode.S) && CheckGround())
         {
             _isCrouching = false;
             particles.transform.position = standigPos.position;
         }
     }
 
-    public bool GroundCheck()
+    public bool CheckGround()
     {
-        RaycastHit2D hit1 = Physics2D.Raycast(body.position + rayOrigin1, Vector2.down, 0.1f);
-        RaycastHit2D hit2 = Physics2D.Raycast(body.position + rayOrigin2, Vector2.down, 0.1f);
-        RaycastHit2D hit3 = Physics2D.Raycast(body.position + rayOrigin3, Vector2.down, 0.1f);
-        return (hit1.collider != null && hit1.collider.CompareTag("Ground"))
-            || (hit2.collider != null && hit2.collider.CompareTag("Ground"))
-            || (hit3.collider != null && hit3.collider.CompareTag("Ground"));       
+        return GroundCheck.IsGrounded;
+
+        //RaycastHit2D hit1 = Physics2D.Raycast(body.position + rayOrigin1, Vector2.down, 0.1f);
+        //RaycastHit2D hit2 = Physics2D.Raycast(body.position + rayOrigin2, Vector2.down, 0.1f);
+        //RaycastHit2D hit3 = Physics2D.Raycast(body.position + rayOrigin3, Vector2.down, 0.1f);
+        //return (hit1.collider != null && hit1.collider.CompareTag("Ground"))
+        //    || (hit2.collider != null && hit2.collider.CompareTag("Ground"))
+        //    || (hit3.collider != null && hit3.collider.CompareTag("Ground"));      
+
+        
     }
 
     void FixedUpdate()
@@ -97,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(jump)
         {
-            if (GroundCheck())
+            if (CheckGround())
             {
                 body.velocity = new Vector2(body.velocity.x, 0);
                 body.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);

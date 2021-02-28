@@ -20,6 +20,15 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        PlayerPrefs.SetString(Menu.SceneLoadPref, SceneManager.GetActiveScene().name);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        }
     }
 
     public IEnumerator InstantiatePlayerDeath(GameObject player, Vector2 collisor, bool isFlipped)

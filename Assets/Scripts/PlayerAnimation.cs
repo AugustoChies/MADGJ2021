@@ -16,7 +16,6 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Vector2 _crouchSize;
 
     [SerializeField] private static PlayerState _playerState;
-    [SerializeField] private PlayerState _playerState2;
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private Animator _animator;
     [SerializeField] private BoxCollider2D _collider;
@@ -31,7 +30,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        _playerState2 = _playerState;
         if(GameController.instance._gameState == GameState.Gameplay)
         {
             UpdateAnimations();
@@ -49,7 +47,7 @@ public class PlayerAnimation : MonoBehaviour
                     _animator.Play(RunAnimationName);
                     _playerState = PlayerState.Running;
                 }
-                if (!_playerMovement.GroundCheck())
+                if (!_playerMovement.CheckGround())
                 {
                     _animator.Play(JumpAnimationName);
                     _playerState = PlayerState.Jumping;
@@ -62,12 +60,12 @@ public class PlayerAnimation : MonoBehaviour
                 break;
 
             case PlayerState.Running:
-                if (_playerMovement.Movement == 0 && _playerMovement.GroundCheck())
+                if (_playerMovement.Movement == 0 && _playerMovement.CheckGround())
                 {
                     _animator.Play(IdleAnimationName);
                     _playerState = PlayerState.Idle;
                 }
-                if (!_playerMovement.GroundCheck())
+                if (!_playerMovement.CheckGround())
                 {
                     _animator.Play(JumpAnimationName);
                     _playerState = PlayerState.Jumping;
@@ -80,12 +78,12 @@ public class PlayerAnimation : MonoBehaviour
                 break;
 
             case PlayerState.Jumping:
-                if(_playerMovement.GroundCheck() && _playerMovement.Movement == 0)
+                if(_playerMovement.CheckGround() && _playerMovement.Movement == 0)
                 {
                     _animator.Play(IdleAnimationName);
                     _playerState = PlayerState.Idle;
                 }
-                if (_playerMovement.GroundCheck() && _playerMovement.Movement != 0)
+                if (_playerMovement.CheckGround() && _playerMovement.Movement != 0)
                 {
                     _animator.Play(RunAnimationName);
                     _playerState = PlayerState.Running;
