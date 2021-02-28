@@ -1582,7 +1582,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 31d23e7878a98554a91a39571af2586e, type: 3}
+    - sprite: {fileID: 21300000, guid: a36ad59d1a236d44d9548e148dcb86bd, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -5012,6 +5012,7 @@ MonoBehaviour:
   _normalSize: {x: 0.6, y: 2.1}
   _crouchOffset: {x: 0, y: -0.4}
   _crouchSize: {x: 1.15, y: 1.2}
+  _playerState2: 0
   _playerMovement: {fileID: 8135997461731294661}
   _animator: {fileID: 495057446}
   _collider: {fileID: 7618544967009192868}
