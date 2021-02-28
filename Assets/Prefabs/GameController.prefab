@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameState: 0
-  _nextLevelName: TestScene
   _player: {fileID: 0}
   _transitionImage: {fileID: 0}
   _playerDeathSpawn: {fileID: 0}
   _playerStartPosition: {fileID: 0}
+  _levelTransitionWaitTime: 4
